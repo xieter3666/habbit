@@ -1,0 +1,18 @@
+// 云函数：login
+// 由微信服务器底层注入真实用户标识，杜绝前端伪造
+const cloud = require('wx-server-sdk');
+
+cloud.init({
+  env: cloud.DYNAMIC_CURRENT_ENV
+});
+
+exports.main = async (event, context) => {
+  const wxContext = cloud.getWXContext();
+
+  return {
+    openid: wxContext.OPENID,
+    appid: wxContext.APPID,
+    unionid: wxContext.UNIONID,
+    env: wxContext.ENV
+  };
+};

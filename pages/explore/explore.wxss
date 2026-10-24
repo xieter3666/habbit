@@ -1,0 +1,745 @@
+.explore-container {
+  min-height: 100vh;
+  background-color: #F7F4EB;
+  position: relative;
+  padding-bottom: 20rpx;
+}
+
+/* ================= 顶部自然艺术横幅 ================= */
+.banner-section {
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+  line-height: 0;
+  padding-top: env(safe-area-inset-top);
+  background: #F6F8F3;
+}
+
+.banner-artwork {
+  width: 100%;
+  display: block;
+}
+
+.content-body {
+  padding: 0 28rpx;
+  position: relative;
+  top: -20rpx;
+}
+
+/* ================= 地球Online 冒险卡片 ================= */
+.earth-card {
+  padding: 24rpx 28rpx;
+  margin-bottom: 24rpx;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #FCFBF7;
+}
+
+.earth-card-left {
+  display: flex;
+  align-items: center;
+  flex: 1.2;
+}
+
+.earth-icon {
+  width: 92rpx;
+  height: 92rpx;
+  margin-right: 18rpx;
+  flex-shrink: 0;
+}
+
+.earth-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.earth-title-row {
+  display: flex;
+  align-items: center;
+}
+
+.earth-title {
+  font-size: 32rpx;
+  font-weight: 700;
+  color: #4A4238;
+}
+
+.earth-arrow {
+  font-size: 28rpx;
+  color: #8C8477;
+  margin-left: 8rpx;
+}
+
+.earth-subtitle {
+  font-size: 20rpx;
+  color: #8C8477;
+  margin-top: 6rpx;
+  line-height: 1.3;
+}
+
+.earth-card-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin: 0 16rpx;
+}
+
+.lv-badge-row {
+  display: flex;
+  align-items: center;
+  font-size: 22rpx;
+  font-weight: 700;
+  color: #4A4238;
+}
+
+.lv-text {
+  margin-right: 8rpx;
+}
+
+.lv-title {
+  color: #5C7C57;
+  font-size: 20rpx;
+}
+
+.sparkle {
+  color: #F5B059;
+  font-size: 18rpx;
+  margin-left: 4rpx;
+}
+
+.exp-bar-wrap {
+  width: 140rpx;
+  height: 12rpx;
+  background: #EBE5D8;
+  border-radius: 6rpx;
+  margin: 8rpx 0 6rpx;
+  overflow: hidden;
+}
+
+.exp-bar-inner {
+  height: 100%;
+  background: linear-gradient(90deg, #7FA277, #5C7C57);
+  border-radius: 6rpx;
+  transition: width 0.3s ease;
+}
+
+.exp-text {
+  font-size: 18rpx;
+  color: #A39B8F;
+}
+
+.reward-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: #FDF4E5;
+  border: 2rpx dashed #F5C68A;
+  border-radius: 24rpx;
+  padding: 12rpx 16rpx;
+  flex-shrink: 0;
+}
+
+.reward-box:active {
+  transform: scale(0.95);
+}
+
+.gift-icon {
+  width: 48rpx;
+  height: 48rpx;
+}
+
+.gift-text {
+  font-size: 18rpx;
+  color: #C97D2E;
+  font-weight: 600;
+  margin-top: 4rpx;
+}
+
+/* ================= 每日任务板块 ================= */
+.section-card {
+  padding: 28rpx 28rpx 20rpx;
+  margin-bottom: 24rpx;
+}
+
+.section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24rpx;
+}
+
+.section-title-wrap {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+}
+
+.sprout-icon {
+  font-size: 28rpx;
+  margin-right: 8rpx;
+}
+
+.section-title {
+  font-size: 32rpx;
+  font-weight: 700;
+  color: #4A4238;
+  margin-right: 12rpx;
+}
+
+.section-sub {
+  font-size: 20rpx;
+  color: #999081;
+}
+
+.done-tag {
+  background: #FBF5E6;
+  border-radius: 20rpx;
+  padding: 6rpx 14rpx;
+  font-size: 20rpx;
+  color: #D48828;
+  font-weight: 600;
+}
+
+.task-list {
+  display: flex;
+  flex-direction: column;
+  gap: 18rpx;
+}
+
+.task-item {
+  display: flex;
+  align-items: center;
+  background: #FAF8F2;
+  border-radius: 28rpx;
+  padding: 20rpx 24rpx;
+  border: 2rpx solid #EFEAE0;
+  transition: all 0.2s ease;
+}
+
+.task-item.task-done {
+  background: #F3EFE7;
+  opacity: 0.85;
+}
+
+.task-icon-wrap {
+  width: 76rpx;
+  height: 76rpx;
+  border-radius: 20rpx;
+  background: #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 20rpx;
+  flex-shrink: 0;
+  box-shadow: 0 4rpx 12rpx rgba(160, 140, 110, 0.08);
+}
+
+.task-icon {
+  width: 48rpx;
+  height: 48rpx;
+}
+
+.task-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.task-title {
+  font-size: 28rpx;
+  font-weight: 600;
+  color: #4A4238;
+}
+
+.task-desc {
+  font-size: 20rpx;
+  color: #8C8477;
+  margin: 4rpx 0 8rpx;
+}
+
+.task-rewards {
+  display: flex;
+  gap: 12rpx;
+}
+
+.reward-tag {
+  font-size: 18rpx;
+  padding: 2rpx 10rpx;
+  border-radius: 12rpx;
+}
+
+.reward-tag.exp {
+  background: #EFF6EE;
+  color: #5C7C57;
+}
+
+.reward-tag.star {
+  background: #FEF7EC;
+  color: #D48828;
+}
+
+.task-btn {
+  font-size: 22rpx;
+  padding: 12rpx 26rpx;
+  line-height: 1;
+  border: none;
+}
+
+.add-task-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20rpx;
+  padding: 16rpx;
+  border: 2rpx dashed #D6CEC0;
+  border-radius: 20rpx;
+  background: #FCFAF6;
+}
+
+.add-task-bar:active {
+  background: #F4EFE6;
+}
+
+.add-icon {
+  font-size: 26rpx;
+  color: #5C7C57;
+  margin-right: 8rpx;
+}
+
+.add-text {
+  font-size: 22rpx;
+  color: #7A7265;
+}
+
+/* ================= 本周挑战板块 ================= */
+.challenge-card {
+  padding: 28rpx;
+  margin-bottom: 24rpx;
+  background: linear-gradient(135deg, #DEE9F7 0%, #CCDCEF 100%);
+  border: 2rpx solid #C0D2E8;
+  position: relative;
+  overflow: hidden;
+}
+
+.challenge-bg-decor {
+  position: absolute;
+  right: 8rpx;
+  bottom: 8rpx;
+  width: 320rpx;
+  height: 160rpx;
+  pointer-events: none;
+}
+
+.challenge-dog-img {
+  width: 100%;
+  height: 100%;
+}
+
+.challenge-body {
+  position: relative;
+  z-index: 2;
+  max-width: 500rpx;
+}
+
+.challenge-tag {
+  display: inline-block;
+  background: rgba(255, 255, 255, 0.7);
+  border-radius: 16rpx;
+  padding: 4rpx 16rpx;
+  font-size: 20rpx;
+  color: #E26D3C;
+  font-weight: 700;
+  margin-bottom: 12rpx;
+}
+
+.challenge-main-title {
+  margin-bottom: 8rpx;
+}
+
+.title-text {
+  font-size: 36rpx;
+  font-weight: 800;
+  color: #2F486B;
+}
+
+.challenge-desc {
+  font-size: 22rpx;
+  color: #57708F;
+  display: block;
+  margin-bottom: 16rpx;
+}
+
+.challenge-days-row {
+  display: flex;
+  gap: 16rpx;
+  margin-bottom: 20rpx;
+}
+
+.day-dot {
+  width: 80rpx;
+  height: 48rpx;
+  border-radius: 24rpx;
+  background: rgba(255, 255, 255, 0.6);
+  border: 2rpx solid rgba(130, 160, 200, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.day-dot.checked {
+  background: #5077A8;
+  color: #FFFFFF;
+  border-color: #5077A8;
+}
+
+.day-check-text {
+  font-size: 20rpx;
+  font-weight: 600;
+}
+
+.challenge-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 630rpx;
+}
+
+.challenge-rewards {
+  display: flex;
+  gap: 12rpx;
+}
+
+.ch-reward {
+  font-size: 20rpx;
+  background: rgba(255, 255, 255, 0.8);
+  padding: 6rpx 14rpx;
+  border-radius: 14rpx;
+  color: #385579;
+  font-weight: 600;
+}
+
+.ch-btn {
+  font-size: 22rpx;
+  padding: 12rpx 28rpx;
+  line-height: 1;
+  border: none;
+}
+
+/* ================= 今日幸运事件 ================= */
+.fortune-card {
+  padding: 24rpx 28rpx;
+  margin-bottom: 24rpx;
+  background: #FCFBF7;
+}
+
+.fortune-header {
+  margin-bottom: 14rpx;
+}
+
+.fortune-title-wrap {
+  display: flex;
+  align-items: center;
+}
+
+.clover-icon {
+  font-size: 28rpx;
+  margin-right: 8rpx;
+}
+
+.fortune-title {
+  font-size: 28rpx;
+  font-weight: 700;
+  color: #4A4238;
+}
+
+.fortune-refresh-tip {
+  font-size: 20rpx;
+  color: #A39B8F;
+  margin-left: 10rpx;
+}
+
+.fortune-content {
+  display: flex;
+  align-items: center;
+  background: #FAF8F2;
+  border-radius: 24rpx;
+  padding: 18rpx 20rpx;
+  border: 2rpx solid #EFEAE0;
+}
+
+.fortune-arrow-circle {
+  width: 44rpx;
+  height: 44rpx;
+  border-radius: 50%;
+  background: #7FA277;
+  color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22rpx;
+  margin-right: 16rpx;
+  flex-shrink: 0;
+}
+
+.fortune-text {
+  font-size: 24rpx;
+  color: #595246;
+  flex: 1;
+  line-height: 1.4;
+}
+
+.fortune-stamp-wrap {
+  width: 60rpx;
+  height: 60rpx;
+  margin-left: 16rpx;
+  flex-shrink: 0;
+}
+
+.fortune-stamp {
+  width: 100%;
+  height: 100%;
+}
+
+/* ================= 底部两列：我的成长 & 萌宠寄语 ================= */
+.bottom-row {
+  display: flex;
+  gap: 20rpx;
+  margin-bottom: 24rpx;
+}
+
+.growth-card {
+  flex: 1.2;
+  padding: 24rpx;
+  background: #FCFBF7;
+}
+
+.growth-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 16rpx;
+}
+
+.growth-sprout {
+  font-size: 24rpx;
+  margin-right: 8rpx;
+}
+
+.growth-title {
+  font-size: 26rpx;
+  font-weight: 700;
+  color: #4A4238;
+}
+
+.growth-arrow {
+  font-size: 24rpx;
+  color: #8C8477;
+  margin-left: 6rpx;
+}
+
+.growth-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16rpx;
+}
+
+.growth-stat-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: #FAF8F2;
+  border-radius: 18rpx;
+  padding: 10rpx 0;
+  border: 1rpx solid #EFEAE0;
+}
+
+.stat-num {
+  font-size: 30rpx;
+  font-weight: 700;
+}
+
+.star-color { color: #D48828; }
+.level-color { color: #5C7C57; }
+.ach-color { color: #C47937; }
+.col-color { color: #537599; }
+
+.stat-name {
+  font-size: 18rpx;
+  color: #8C8477;
+  margin-top: 4rpx;
+}
+
+.encourage-card {
+  flex: 1;
+  padding: 20rpx;
+  background: linear-gradient(135deg, #FFFDF8, #F7F1E5);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.encourage-speech {
+  position: relative;
+  background: #FFFFFF;
+  border-radius: 18rpx;
+  padding: 10rpx 16rpx;
+  font-size: 20rpx;
+  color: #5C5243;
+  line-height: 1.3;
+  box-shadow: 0 4rpx 10rpx rgba(160, 140, 110, 0.08);
+  border: 1rpx solid #EFE9DE;
+  text-align: center;
+}
+
+.encourage-speech::after {
+  content: '';
+  position: absolute;
+  bottom: -8rpx;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 8rpx solid transparent;
+  border-right: 8rpx solid transparent;
+  border-top: 8rpx solid #FFFFFF;
+}
+
+.encourage-puppy {
+  width: 180rpx;
+  height: 120rpx;
+  margin-top: 10rpx;
+}
+
+/* ================= 弹窗内部样式 ================= */
+.modal-reward-inner, .modal-cam-inner, .modal-read-inner, .modal-add-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.modal-gift-img, .read-icon-img {
+  width: 140rpx;
+  height: 140rpx;
+  margin-bottom: 20rpx;
+}
+
+.reward-highlight {
+  font-size: 32rpx;
+  font-weight: 700;
+  color: #D48828;
+  margin-bottom: 12rpx;
+}
+
+.reward-subtext {
+  font-size: 24rpx;
+  color: #8C8477;
+  text-align: center;
+  margin-bottom: 24rpx;
+}
+
+.reward-items-box {
+  display: flex;
+  gap: 24rpx;
+  margin-bottom: 32rpx;
+}
+
+.reward-item {
+  background: #FFFDF8;
+  border: 2rpx solid #F5C68A;
+  border-radius: 20rpx;
+  padding: 12rpx 24rpx;
+  display: flex;
+  align-items: center;
+}
+
+.ri-icon {
+  font-size: 28rpx;
+  margin-right: 8rpx;
+}
+
+.ri-value {
+  font-size: 24rpx;
+  font-weight: 700;
+  color: #C97D2E;
+}
+
+.modal-action-btn {
+  width: 100%;
+  padding: 22rpx 0;
+  font-size: 28rpx;
+  border: none;
+}
+
+.photo-preview-wrap {
+  width: 100%;
+  height: 320rpx;
+  border-radius: 24rpx;
+  background: #F8F5EC;
+  border: 2rpx dashed #D6CEC0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  margin-bottom: 20rpx;
+}
+
+.photo-img {
+  width: 100%;
+  height: 100%;
+}
+
+.photo-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.ph-cam-icon {
+  width: 64rpx;
+  height: 64rpx;
+  margin-bottom: 12rpx;
+}
+
+.ph-text {
+  font-size: 22rpx;
+  color: #9C9487;
+}
+
+.caption-input, .bzd-input {
+  width: 100%;
+  background: #FAF8F2;
+  border: 2rpx solid #EAE3D5;
+  border-radius: 20rpx;
+  padding: 20rpx 24rpx;
+  font-size: 26rpx;
+  color: #4A4238;
+  margin-bottom: 24rpx;
+}
+
+.read-title {
+  font-size: 32rpx;
+  font-weight: 700;
+  color: #4A4238;
+}
+
+.read-desc {
+  font-size: 22rpx;
+  color: #8C8477;
+  margin: 10rpx 0 24rpx;
+}
+
+.read-timer-display {
+  background: #F4EFE6;
+  border-radius: 28rpx;
+  padding: 16rpx 48rpx;
+  margin-bottom: 32rpx;
+}
+
+.read-time-num {
+  font-size: 54rpx;
+  font-weight: 800;
+  color: #5C7C57;
+  letter-spacing: 4rpx;
+}

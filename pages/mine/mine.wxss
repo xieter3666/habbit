@@ -1,0 +1,1387 @@
+.mine-container {
+  min-height: 100vh;
+  background-color: #F7F4EB;
+  position: relative;
+  padding-bottom: 30rpx;
+}
+
+/* ================= 顶部自定义导航与模态切换 ================= */
+.mine-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: calc(env(safe-area-inset-top) + 20rpx) 32rpx 20rpx;
+  background: #F7F4EB;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.view-mode-tabs {
+  display: flex;
+  background: #EAE3D5;
+  border-radius: 999rpx;
+  padding: 6rpx;
+}
+
+.mode-pill {
+  padding: 10rpx 28rpx;
+  border-radius: 999rpx;
+  font-size: 24rpx;
+  font-weight: 600;
+  color: #7A7062;
+  transition: all 0.25s ease;
+}
+
+.mode-pill.active {
+  background: #FFFFFF;
+  color: #4A4238;
+  box-shadow: 0 4rpx 12rpx rgba(130, 110, 80, 0.15);
+}
+
+.topbar-right-actions {
+  display: flex;
+  gap: 16rpx;
+}
+
+.icon-circle-btn {
+  width: 64rpx;
+  height: 64rpx;
+  border-radius: 50%;
+  background: #FFFFFF;
+  border: 2rpx solid #EAE3D5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4rpx 10rpx rgba(160, 140, 110, 0.08);
+}
+
+.icon-circle-btn:active {
+  transform: scale(0.92);
+}
+
+.topbar-emoji {
+  font-size: 28rpx;
+}
+
+/* ============================================================== */
+/* 模态 A：温馨小屋场景态 (Scene Mode)                             */
+/* ============================================================== */
+.scene-view-wrap {
+  padding: 0 28rpx;
+}
+
+/* 顶部用户卡片 */
+.scene-header-card {
+  padding: 24rpx 28rpx;
+  margin-bottom: 20rpx;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #FCFBF7;
+}
+
+.sh-left {
+  display: flex;
+  align-items: center;
+  flex: 1;
+}
+
+.sh-avatar {
+  width: 110rpx;
+  height: 110rpx;
+  border-radius: 50%;
+  border: 4rpx solid #EBE4D5;
+  margin-right: 20rpx;
+  flex-shrink: 0;
+}
+
+.sh-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.sh-name-row {
+  display: flex;
+  align-items: center;
+}
+
+.sh-name {
+  font-size: 32rpx;
+  font-weight: 700;
+  color: #4A4238;
+}
+
+.sh-leaf {
+  font-size: 28rpx;
+  margin-left: 6rpx;
+}
+
+.sh-bio {
+  font-size: 20rpx;
+  color: #8C8477;
+  margin: 4rpx 0 8rpx;
+}
+
+.sh-lv-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8rpx;
+}
+
+.sh-lv {
+  font-size: 20rpx;
+  font-weight: 700;
+  color: #5C7C57;
+}
+
+.sh-exp-bar {
+  width: 100rpx;
+  height: 10rpx;
+  background: #EBE5D8;
+  border-radius: 5rpx;
+  overflow: hidden;
+}
+
+.sh-exp-inner {
+  height: 100%;
+  background: #7FA277;
+}
+
+.sh-exp-text {
+  font-size: 18rpx;
+  color: #A39B8F;
+}
+
+.sh-title-badge {
+  background: #FDF5E7;
+  border-radius: 12rpx;
+  padding: 2rpx 10rpx;
+  font-size: 18rpx;
+  color: #D48828;
+  font-weight: 600;
+}
+
+.sh-weather {
+  display: flex;
+  align-items: center;
+  background: #FAF8F2;
+  border: 2rpx solid #EFEAE0;
+  border-radius: 20rpx;
+  padding: 10rpx 14rpx;
+  flex-shrink: 0;
+}
+
+.sh-weather-icon {
+  font-size: 36rpx;
+  margin-right: 8rpx;
+}
+
+.sh-weather-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.wt-temp {
+  font-size: 22rpx;
+  font-weight: 600;
+  color: #4A4238;
+}
+
+.wt-loc {
+  font-size: 18rpx;
+  color: #8C8477;
+}
+
+/* 统计数据条 */
+.scene-stats-strip {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding: 16rpx 24rpx;
+  margin-bottom: 24rpx;
+  background: #FAF8F2;
+}
+
+.stat-pill {
+  display: flex;
+  align-items: center;
+  gap: 8rpx;
+}
+
+.sp-icon {
+  font-size: 24rpx;
+}
+
+.sp-num {
+  font-size: 28rpx;
+  font-weight: 700;
+  color: #4A4238;
+}
+
+.sp-label {
+  font-size: 22rpx;
+  color: #8C8477;
+}
+
+.stat-divider {
+  width: 2rpx;
+  height: 28rpx;
+  background: #EAE3D5;
+}
+
+/* 温馨房间交互画布 */
+.room-scene-box {
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 24rpx;
+  border-radius: 40rpx;
+}
+
+.room-bg-img {
+  width: 100%;
+  display: block;
+}
+
+.character-speech-bubble {
+  position: absolute;
+  top: 6%;
+  left: 14%;
+  max-width: 50%;
+  background: rgba(255, 255, 255, 0.94);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-radius: 20rpx;
+  padding: 10rpx 18rpx;
+  font-size: 22rpx;
+  line-height: 1.4;
+  color: #4A4238;
+  font-weight: 600;
+  box-shadow: 0 6rpx 16rpx rgba(100, 80, 50, 0.15);
+  border: 2rpx solid #EFEAE0;
+  cursor: pointer;
+  z-index: 10;
+}
+
+.character-speech-bubble::after {
+  content: '';
+  position: absolute;
+  bottom: -10rpx;
+  right: 28rpx;
+  width: 0;
+  height: 0;
+  border-left: 10rpx solid transparent;
+  border-right: 10rpx solid transparent;
+  border-top: 12rpx solid #FFFFFF;
+}
+
+.room-girl-touch {
+  position: absolute;
+  left: 20%;
+  top: 25%;
+  width: 28%;
+  height: 65%;
+  z-index: 9;
+  cursor: pointer;
+}
+
+.room-cat-touch {
+  position: absolute;
+  bottom: 8%;
+  left: 52%;
+  width: 20%;
+  height: 35%;
+  z-index: 10;
+  cursor: pointer;
+}
+
+.touch-hint-heart {
+  position: absolute;
+  top: -30rpx;
+  left: 40rpx;
+  font-size: 36rpx;
+  animation: heartFloat 1.2s ease-out forwards;
+}
+
+.scene-float-actions {
+  position: absolute;
+  right: 16rpx;
+  top: 16rpx;
+  display: flex;
+  flex-direction: column;
+  gap: 12rpx;
+  z-index: 10;
+}
+
+.scene-float-btn {
+  display: flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-radius: 36rpx;
+  padding: 10rpx 18rpx;
+  box-shadow: 0 6rpx 16rpx rgba(100, 80, 50, 0.12);
+  border: 2rpx solid #EFEAE0;
+}
+
+.scene-float-btn:active {
+  transform: scale(0.95);
+}
+
+.sfb-icon {
+  font-size: 28rpx;
+  margin-right: 8rpx;
+}
+
+.sfb-col {
+  display: flex;
+  flex-direction: column;
+}
+
+.sfb-label {
+  font-size: 22rpx;
+  font-weight: 600;
+  color: #4A4238;
+}
+
+.sfb-sub {
+  font-size: 18rpx;
+  color: #7FA277;
+  font-weight: 500;
+}
+
+/* 我的工具箱 */
+.toolbox-section {
+  padding: 24rpx 28rpx;
+  margin-bottom: 24rpx;
+  background: #FCFBF7;
+}
+
+.section-title-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20rpx;
+}
+
+.st-left {
+  display: flex;
+  align-items: center;
+}
+
+.st-leaf {
+  font-size: 28rpx;
+  margin-right: 8rpx;
+}
+
+.st-text {
+  font-size: 30rpx;
+  font-weight: 700;
+  color: #4A4238;
+}
+
+.st-arrow {
+  font-size: 28rpx;
+  color: #8C8477;
+}
+
+.st-more-link {
+  font-size: 22rpx;
+  color: #8C8477;
+}
+
+.toolbox-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 12rpx;
+}
+
+.toolbox-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: transform 0.2s ease;
+}
+
+.toolbox-item:active {
+  transform: scale(0.92);
+}
+
+.tool-icon {
+  width: 84rpx;
+  height: 84rpx;
+}
+
+.tool-label {
+  font-size: 20rpx;
+  color: #6E6659;
+  margin-top: 6rpx;
+}
+
+/* 我的成就 */
+.achievements-section {
+  padding: 24rpx 28rpx;
+  margin-bottom: 24rpx;
+  background: #FCFBF7;
+}
+
+.achievements-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 10rpx;
+}
+
+.ach-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+  text-align: center;
+}
+
+.ach-item:active {
+  transform: scale(0.95);
+}
+
+.ach-badge-img {
+  width: 100rpx;
+  height: 100rpx;
+}
+
+.ach-name {
+  font-size: 20rpx;
+  font-weight: 600;
+  color: #4A4238;
+  margin-top: 6rpx;
+}
+
+.ach-sub {
+  font-size: 16rpx;
+  color: #9C9487;
+  margin-top: 2rpx;
+}
+
+.ach-item.locked {
+  opacity: 0.6;
+}
+
+/* ============================================================== */
+/* 模态 B：个人档案列表态 (List Mode)                               */
+/* ============================================================== */
+.list-view-wrap {
+  padding: 0 28rpx;
+}
+
+.list-usercard {
+  padding: 24rpx 28rpx;
+  margin-bottom: 20rpx;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #FCFBF7;
+}
+
+.luc-left {
+  display: flex;
+  align-items: center;
+  flex: 1;
+}
+
+.luc-avatar {
+  width: 116rpx;
+  height: 116rpx;
+  border-radius: 50%;
+  border: 4rpx solid #EBE4D5;
+  margin-right: 20rpx;
+}
+
+.luc-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.luc-name-row {
+  display: flex;
+  align-items: center;
+}
+
+.luc-name {
+  font-size: 32rpx;
+  font-weight: 700;
+  color: #4A4238;
+}
+
+.luc-leaf {
+  font-size: 28rpx;
+  margin-left: 6rpx;
+}
+
+.luc-bio {
+  font-size: 20rpx;
+  color: #8C8477;
+  margin: 4rpx 0 8rpx;
+}
+
+.luc-lv-row {
+  display: flex;
+  align-items: center;
+  gap: 8rpx;
+  flex-wrap: wrap;
+}
+
+.luc-lv {
+  font-size: 20rpx;
+  font-weight: 700;
+  color: #5C7C57;
+}
+
+.luc-exp-bar {
+  width: 100rpx;
+  height: 10rpx;
+  background: #EBE5D8;
+  border-radius: 5rpx;
+  overflow: hidden;
+}
+
+.luc-exp-inner {
+  height: 100%;
+  background: #7FA277;
+}
+
+.luc-exp-text {
+  font-size: 18rpx;
+  color: #A39B8F;
+}
+
+.luc-title-badge {
+  background: #FDF5E7;
+  border-radius: 12rpx;
+  padding: 2rpx 10rpx;
+  font-size: 18rpx;
+  color: #D48828;
+  font-weight: 600;
+}
+
+.luc-weather {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.luc-weather-icon {
+  font-size: 36rpx;
+}
+
+.luc-temp {
+  font-size: 22rpx;
+  font-weight: 600;
+  color: #4A4238;
+  margin: 4rpx 0;
+}
+
+.luc-loc {
+  font-size: 18rpx;
+  color: #8C8477;
+}
+
+/* 指标卡片 */
+.list-metrics-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding: 24rpx;
+  margin-bottom: 20rpx;
+  background: #FCFBF7;
+}
+
+.metric-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+}
+
+.metric-val {
+  font-size: 36rpx;
+  font-weight: 800;
+}
+
+.exp-val { color: #5C7C57; }
+.star-val { color: #D48828; }
+.ach-val { color: #C47937; }
+
+.metric-lbl {
+  font-size: 20rpx;
+  color: #8C8477;
+  margin-top: 6rpx;
+}
+
+.metric-vdiv {
+  width: 2rpx;
+  height: 36rpx;
+  background: #EAE3D5;
+}
+
+.title-col {
+  cursor: pointer;
+}
+
+.title-tag-row {
+  display: flex;
+  align-items: center;
+  background: #F8F4EC;
+  border-radius: 16rpx;
+  padding: 4rpx 12rpx;
+  margin-top: 6rpx;
+}
+
+.title-tag-text {
+  font-size: 20rpx;
+  color: #5C7C57;
+  font-weight: 600;
+}
+
+.title-tag-arrow {
+  font-size: 20rpx;
+  color: #8C8477;
+  margin-left: 4rpx;
+}
+
+/* 云端持久化状态提示卡 */
+.cloud-sync-card {
+  padding: 18rpx 24rpx;
+  margin-bottom: 20rpx;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #FCFBF7;
+}
+
+.csc-left {
+  display: flex;
+  align-items: center;
+  gap: 14rpx;
+  flex: 1;
+}
+
+.csc-dot {
+  font-size: 20rpx;
+}
+
+.csc-dot.synced {
+  color: #5C7C57;
+}
+
+.csc-dot.local {
+  color: #D48828;
+}
+
+.csc-text-col {
+  display: flex;
+  flex-direction: column;
+}
+
+.csc-title {
+  font-size: 22rpx;
+  font-weight: 700;
+  color: #4A4238;
+}
+
+.csc-sub {
+  font-size: 18rpx;
+  color: #9E9689;
+  margin-top: 2rpx;
+}
+
+.csc-right {
+  margin-left: 12rpx;
+}
+
+.csc-arrow {
+  font-size: 20rpx;
+  color: #8C8272;
+}
+
+/* 我的装扮卡片 */
+.list-wardrobe-card {
+  padding: 24rpx 28rpx;
+  margin-bottom: 20rpx;
+  background: #FCFBF7;
+}
+
+.wardrobe-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.wardrobe-slots {
+  display: flex;
+  gap: 16rpx;
+  flex: 1;
+}
+
+.outfit-slot {
+  width: 76rpx;
+  height: 76rpx;
+  border-radius: 20rpx;
+  background: #FAF8F2;
+  border: 2rpx solid #EAE3D5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.outfit-slot-img {
+  width: 56rpx;
+  height: 56rpx;
+}
+
+.chibi-preview-wrap {
+  width: 140rpx;
+  height: 140rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.chibi-preview-img {
+  width: 130rpx;
+  height: 130rpx;
+}
+
+/* 我的宠物卡片 */
+.list-pets-card {
+  padding: 24rpx 28rpx;
+  margin-bottom: 20rpx;
+  background: #FCFBF7;
+}
+
+.st-sub-hint {
+  font-size: 20rpx;
+  color: #8C8477;
+}
+
+.pets-card-body {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.pet-slots-strip {
+  display: flex;
+  gap: 8rpx;
+  flex: 1;
+}
+
+.pet-slot {
+  width: 66rpx;
+  height: 66rpx;
+  border-radius: 18rpx;
+  background: #FAF8F2;
+  border: 2rpx solid #EAE3D5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.pet-slot-avatar {
+  width: 100%;
+  height: 100%;
+}
+
+.silhouette-slot {
+  opacity: 0.9;
+}
+
+.lock-slot {
+  opacity: 0.65;
+}
+
+.lock-icon {
+  font-size: 26rpx;
+}
+
+.pet-art-aside {
+  width: 160rpx;
+  height: 130rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pet-art-img {
+  width: 150rpx;
+  height: 120rpx;
+}
+
+/* 功能菜单列表 */
+.list-menu-card {
+  padding: 8rpx 28rpx;
+  margin-bottom: 24rpx;
+  background: #FCFBF7;
+}
+
+.menu-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 24rpx 0;
+  border-bottom: 2rpx solid #F4EFE6;
+}
+
+.menu-row:last-child {
+  border-bottom: none;
+}
+
+.menu-row:active {
+  opacity: 0.7;
+}
+
+.menu-left {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.menu-icon-img {
+  width: 44rpx;
+  height: 44rpx;
+  margin-right: 18rpx;
+}
+
+.menu-label {
+  font-size: 28rpx;
+  font-weight: 600;
+  color: #4A4238;
+}
+
+.red-unread-dot {
+  width: 14rpx;
+  height: 14rpx;
+  border-radius: 50%;
+  background: #E85B4E;
+  margin-left: 12rpx;
+}
+
+.menu-right {
+  display: flex;
+  align-items: center;
+}
+
+.menu-hint {
+  font-size: 22rpx;
+  color: #8C8477;
+  margin-right: 8rpx;
+}
+
+.menu-arrow {
+  font-size: 28rpx;
+  color: #8C8477;
+}
+
+/* 底部风景横幅 */
+.bottom-scenic-banner {
+  width: 100%;
+  overflow: hidden;
+  border-radius: 36rpx;
+  line-height: 0;
+  margin-bottom: 20rpx;
+}
+
+.scenic-banner-img {
+  width: 100%;
+  display: block;
+}
+
+/* ================= 弹窗内部样式 ================= */
+.modal-wardrobe-content, .modal-pet-content, .modal-album-content, .modal-notes-content, .modal-focus-content, .modal-calendar-content, .modal-ach-content, .modal-profile-content, .modal-msg-content, .modal-ex-content, .modal-fb-content, .modal-about-content {
+  width: 100%;
+}
+
+.wardrobe-avatar-preview {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 24rpx;
+}
+
+.preview-chibi {
+  width: 180rpx;
+  height: 180rpx;
+}
+
+.preview-name {
+  font-size: 22rpx;
+  color: #8C8477;
+  margin-top: 8rpx;
+}
+
+.wardrobe-item-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16rpx;
+}
+
+.wardrobe-item-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #FAF8F2;
+  border-radius: 20rpx;
+  padding: 16rpx 20rpx;
+  border: 2rpx solid #EFEAE0;
+}
+
+.wir-icon {
+  width: 60rpx;
+  height: 60rpx;
+  margin-right: 16rpx;
+}
+
+.wir-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.wir-name {
+  font-size: 26rpx;
+  font-weight: 600;
+  color: #4A4238;
+}
+
+.wir-status {
+  font-size: 20rpx;
+  color: #7FA277;
+}
+
+.wir-btn {
+  font-size: 20rpx;
+  padding: 8rpx 20rpx;
+  line-height: 1;
+}
+
+.pet-selection-card {
+  display: flex;
+  align-items: center;
+  background: #FAF8F2;
+  border-radius: 24rpx;
+  padding: 20rpx;
+  margin-bottom: 16rpx;
+  border: 2rpx solid #EFEAE0;
+}
+
+.psc-avatar {
+  width: 88rpx;
+  height: 88rpx;
+  margin-right: 18rpx;
+}
+
+.psc-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.psc-title-row {
+  display: flex;
+  align-items: center;
+  gap: 10rpx;
+}
+
+.psc-name {
+  font-size: 28rpx;
+  font-weight: 700;
+  color: #4A4238;
+}
+
+.psc-tag {
+  font-size: 18rpx;
+  background: #EAE3D5;
+  border-radius: 10rpx;
+  padding: 2rpx 8rpx;
+  color: #6E6659;
+}
+
+.psc-active {
+  font-size: 18rpx;
+  color: #D48828;
+  font-weight: 600;
+}
+
+.psc-desc {
+  font-size: 20rpx;
+  color: #8C8477;
+  margin: 4rpx 0;
+}
+
+.psc-bars {
+  display: flex;
+  gap: 16rpx;
+}
+
+.bar-lbl {
+  font-size: 18rpx;
+  color: #5C7C57;
+}
+
+.psc-btn {
+  font-size: 20rpx;
+  padding: 10rpx 20rpx;
+  line-height: 1;
+}
+
+.psc-locked {
+  font-size: 20rpx;
+  color: #A39B8F;
+}
+
+.album-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 20rpx;
+}
+
+.album-card {
+  background: #FAF8F2;
+  border-radius: 24rpx;
+  overflow: hidden;
+  border: 2rpx solid #EFEAE0;
+}
+
+.album-img {
+  width: 100%;
+  height: 260rpx;
+}
+
+.album-text-bar {
+  display: flex;
+  justify-content: space-between;
+  padding: 12rpx 18rpx 4rpx;
+}
+
+.album-title {
+  font-size: 26rpx;
+  font-weight: 600;
+  color: #4A4238;
+}
+
+.album-date {
+  font-size: 18rpx;
+  color: #8C8477;
+}
+
+.album-caption {
+  font-size: 20rpx;
+  color: #6E6659;
+  padding: 0 18rpx 16rpx;
+  display: block;
+}
+
+.new-note-box {
+  display: flex;
+  flex-direction: column;
+  gap: 16rpx;
+  margin-bottom: 24rpx;
+  padding-bottom: 20rpx;
+  border-bottom: 2rpx solid #F0EAE0;
+}
+
+.bzd-textarea {
+  width: 100%;
+  height: 160rpx;
+  background: #FAF8F2;
+  border: 2rpx solid #EAE3D5;
+  border-radius: 20rpx;
+  padding: 18rpx 20rpx;
+  font-size: 24rpx;
+  color: #4A4238;
+}
+
+.note-submit-btn {
+  padding: 18rpx 0;
+  font-size: 24rpx;
+}
+
+.saved-notes-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16rpx;
+}
+
+.saved-note-item {
+  background: #FAF8F2;
+  border-radius: 20rpx;
+  padding: 16rpx 20rpx;
+  border: 2rpx solid #EFEAE0;
+  position: relative;
+}
+
+.sni-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8rpx;
+}
+
+.sni-title {
+  font-size: 26rpx;
+  font-weight: 600;
+  color: #4A4238;
+}
+
+.sni-date {
+  font-size: 18rpx;
+  color: #8C8477;
+}
+
+.sni-content {
+  font-size: 22rpx;
+  color: #6E6659;
+  line-height: 1.4;
+  display: block;
+}
+
+.sni-del {
+  font-size: 20rpx;
+  color: #D46A6A;
+  margin-top: 8rpx;
+  display: inline-block;
+  cursor: pointer;
+}
+
+.focus-clock-ring {
+  width: 240rpx;
+  height: 240rpx;
+  border-radius: 50%;
+  border: 8rpx solid #7FA277;
+  background: #F4EFE6;
+  margin: 20rpx auto 24rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.focus-timer-text {
+  font-size: 56rpx;
+  font-weight: 800;
+  color: #4A4238;
+}
+
+.focus-mode-text {
+  font-size: 20rpx;
+  color: #5C7C57;
+  margin-top: 6rpx;
+}
+
+.focus-stats-row {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 28rpx;
+}
+
+.fs-text {
+  font-size: 22rpx;
+  color: #8C8477;
+}
+
+.focus-actions {
+  display: flex;
+  gap: 16rpx;
+}
+
+.fa-btn {
+  flex: 1;
+  padding: 20rpx 0;
+  font-size: 24rpx;
+}
+
+.cal-month-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 20rpx;
+}
+
+.cal-month-title {
+  font-size: 32rpx;
+  font-weight: 700;
+  color: #4A4238;
+}
+
+.cal-month-streak {
+  font-size: 22rpx;
+  color: #5C7C57;
+  font-weight: 600;
+}
+
+.cal-weekdays {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  text-align: center;
+  font-size: 22rpx;
+  color: #8C8477;
+  margin-bottom: 16rpx;
+}
+
+.cal-days-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 12rpx;
+}
+
+.cal-day-cell {
+  height: 70rpx;
+  border-radius: 16rpx;
+  background: #FAF8F2;
+  border: 1rpx solid #EFEAE0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.cal-day-cell.checked-day {
+  background: #FDF5E7;
+  border-color: #F5C68A;
+}
+
+.cal-day-cell.today-day {
+  border: 3rpx solid #7FA277;
+  font-weight: 700;
+}
+
+.cal-day-num {
+  font-size: 22rpx;
+  color: #4A4238;
+}
+
+.cal-paw-mark {
+  font-size: 16rpx;
+}
+
+.ach-detail-card {
+  display: flex;
+  align-items: center;
+  background: #FAF8F2;
+  border-radius: 20rpx;
+  padding: 16rpx 20rpx;
+  margin-bottom: 16rpx;
+  border: 2rpx solid #EFEAE0;
+}
+
+.adc-badge {
+  width: 90rpx;
+  height: 90rpx;
+  margin-right: 20rpx;
+}
+
+.adc-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.adc-name-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.adc-name {
+  font-size: 28rpx;
+  font-weight: 700;
+  color: #4A4238;
+}
+
+.adc-status {
+  font-size: 20rpx;
+}
+
+.adc-status.unlocked { color: #5C7C57; font-weight: 600; }
+.adc-status.locked { color: #8C8477; }
+
+.adc-desc {
+  font-size: 20rpx;
+  color: #6E6659;
+  margin: 6rpx 0 2rpx;
+}
+
+.mp-field {
+  margin-bottom: 20rpx;
+}
+
+.mp-label {
+  font-size: 24rpx;
+  color: #6E6659;
+  margin-bottom: 8rpx;
+  display: block;
+}
+
+.msg-card, .ex-card {
+  background: #FAF8F2;
+  border-radius: 20rpx;
+  padding: 18rpx 20rpx;
+  margin-bottom: 16rpx;
+  border: 2rpx solid #EFEAE0;
+}
+
+.msg-header, .ex-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8rpx;
+}
+
+.msg-title, .ex-title {
+  font-size: 26rpx;
+  font-weight: 700;
+  color: #4A4238;
+}
+
+.msg-time, .ex-cost {
+  font-size: 20rpx;
+  color: #D48828;
+}
+
+.msg-body, .ex-date {
+  font-size: 22rpx;
+  color: #6E6659;
+  line-height: 1.4;
+}
+
+.about-logo {
+  width: 140rpx;
+  height: 140rpx;
+  display: block;
+  margin: 0 auto 16rpx;
+}
+
+.about-app-name {
+  font-size: 32rpx;
+  font-weight: 800;
+  color: #4A4238;
+  text-align: center;
+  display: block;
+}
+
+.about-slogan {
+  font-size: 22rpx;
+  color: #5C7C57;
+  text-align: center;
+  display: block;
+  margin: 6rpx 0 20rpx;
+}
+
+.about-desc {
+  font-size: 22rpx;
+  color: #6E6659;
+  line-height: 1.6;
+  text-align: justify;
+  display: block;
+}

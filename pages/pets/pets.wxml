@@ -1,0 +1,173 @@
+<view class="pets-page-container">
+
+  <!-- ================= 顶部自然乐园场景 ================= -->
+  <view class="meadow-hero-wrap">
+    <image class="meadow-full-img" src="/assets/pets/meadow_full.jpg" mode="widthFix" />
+
+    <!-- 顶部状态浮标与返回按钮 -->
+    <view class="hero-top-bar">
+      <view class="back-circle-btn" bindtap="handleGoBack">
+        <text class="back-arrow">‹</text>
+      </view>
+      <view class="star-counter-pill">
+        <text class="scp-icon">⭐</text>
+        <text class="scp-text">我的小星星：{{user.stars}}</text>
+      </view>
+      <view class="pet-companion-badge">
+        <text class="pcb-text">当前陪伴：{{activePet.name}}</text>
+      </view>
+    </view>
+
+    <!-- 悬浮宠物心声气泡 -->
+    <view class="hero-quote-bubble anim-float" bindtap="handleTapPetQuote">
+      <text>{{activePet.quote}}</text>
+    </view>
+
+    <!-- 飘浮爱心动画 -->
+    <view class="floating-hearts-layer" wx:if="{{showHearts}}">
+      <text class="flying-heart h1">❤️</text>
+      <text class="flying-heart h2">💖</text>
+      <text class="flying-heart h3">🐾</text>
+    </view>
+  </view>
+
+  <view class="pets-body-content">
+
+    <!-- ================= 宠物交互控制台 ================= -->
+    <view class="pet-console-card bzd-card">
+      <!-- 宠物选择 Tab -->
+      <view class="pet-selector-tabs">
+        <view
+          class="pet-tab-item {{selectedPetId === item.id ? 'active' : ''}}"
+          wx:for="{{pets}}"
+          wx:key="id"
+          bindtap="switchSelectedPet"
+          data-id="{{item.id}}"
+        >
+          <image class="pet-tab-avatar" src="{{item.avatar}}" mode="aspectFit" />
+          <view class="pet-tab-col">
+            <text class="pet-tab-name">{{item.name}}</text>
+            <text class="pet-tab-status {{item.unlocked ? 'unlocked' : 'locked'}}">
+              {{item.unlocked ? (activePetId === item.id ? '陪伴中' : '可互动') : '待解锁'}}
+            </text>
+          </view>
+        </view>
+      </view>
+
+      <!-- 选中宠物的状态条 -->
+      <view class="pet-detail-status">
+        <view class="pds-header">
+          <view class="pds-title-col">
+            <text class="pds-name">{{selectedPet.name}}</text>
+            <text class="pds-desc">{{selectedPet.desc}}</text>
+          </view>
+          <button
+            class="bzd-btn bzd-btn--green set-companion-btn"
+            bindtap="handleSetCompanion"
+            wx:if="{{selectedPet.unlocked && activePetId !== selectedPet.id}}"
+          >
+            <text>设为小屋陪伴</text>
+          </button>
+        </view>
+
+        <!-- 属性条 -->
+        <view class="pet-meters-row">
+          <view class="meter-item">
+            <view class="meter-info">
+              <text class="meter-label">🍖 饱食度</text>
+              <text class="meter-val">{{selectedPet.hunger}}%</text>
+            </view>
+            <view class="meter-track">
+              <view class="meter-fill food-fill" style="width: {{selectedPet.hunger}}%;"></view>
+            </view>
+          </view>
+
+          <view class="meter-item">
+            <view class="meter-info">
+              <text class="meter-label">💖 亲密度</text>
+              <text class="meter-val">{{selectedPet.happiness}}%</text>
+            </view>
+            <view class="meter-track">
+              <view class="meter-fill love-fill" style="width: {{selectedPet.happiness}}%;"></view>
+            </view>
+          </view>
+        </view>
+
+        <!-- 互动动作按钮组 -->
+        <view class="pet-actions-grid" wx:if="{{selectedPet.unlocked}}">
+          <view class="action-btn-item feed" bindtap="handleFeedPet">
+            <text class="abi-emoji">🐟</text>
+            <text class="abi-title">投喂零食</text>
+            <text class="abi-sub">消耗 2 星星</text>
+          </view>
+
+          <view class="action-btn-item play" bindtap="handlePlayWithPet">
+            <text class="abi-emoji">🎾</text>
+            <text class="abi-title">逗宠玩耍</text>
+            <text class="abi-sub">亲密 +20</text>
+          </view>
+
+          <view class="action-btn-item cuddle" bindtap="handleCuddlePet">
+            <text class="abi-emoji">🧼</text>
+            <text class="abi-title">轻抚毛毛</text>
+            <text class="abi-sub">舒适放松</text>
+          </view>
+        </view>
+
+        <view class="pet-locked-hint" wx:else>
+          <text class="plh-icon">🔒</text>
+          <text class="plh-text">{{selectedPet.unlockReq || '暂未解锁，坚持日常打卡即可领养～'}}</text>
+        </view>
+      </view>
+    </view>
+
+
+    <!-- ================= 萌宠贴纸与爪印图鉴 (来自图4底部) ================= -->
+    <view class="stickers-section-card bzd-card">
+      <view class="section-title-bar">
+        <view class="st-left">
+          <text class="st-leaf">🐾</text>
+          <text class="st-text">萌宠贴纸与爪印图鉴</text>
+        </view>
+        <text class="st-more-link">已收集 6/6</text>
+      </view>
+
+      <view class="stickers-grid">
+        <view
+          class="sticker-card {{item.collected ? 'collected' : ''}}"
+          wx:for="{{stickers}}"
+          wx:key="id"
+          bindtap="handleTapSticker"
+          data-id="{{item.id}}"
+        >
+          <view class="sticker-img-wrap">
+            <image class="sticker-img anim-float" src="{{item.icon}}" mode="aspectFit" />
+          </view>
+          <text class="sticker-name">{{item.name}}</text>
+          <view class="sticker-badge">
+            <text>✓ 已收集</text>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 底部陪伴物语 -->
+    <view class="pet-story-card bzd-card">
+      <view class="story-header">
+        <text class="sh-icon">📖</text>
+        <text class="sh-title">萌宠陪伴小档案</text>
+      </view>
+      <text class="story-content">
+        在草地与阳光下，橘猫伸了个大大的懒腰，小狗甩着尾巴飞奔，灰猫在花丛中好奇探索。它们不仅是生活的点缀，更是每一个平凡日子里最温柔的守候。
+      </text>
+    </view>
+
+  </view>
+
+  <!-- 底部留白 -->
+  <view class="safe-bottom-space"></view>
+
+  <!-- 自定义 TabBar -->
+  <custom-tabbar show="{{true}}" active="pets" />
+
+</view>

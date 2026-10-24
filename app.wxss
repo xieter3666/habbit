@@ -1,0 +1,90 @@
+page {
+  background-color: #F7F4EB;
+  color: #4A4238;
+  font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+}
+
+view, text, image, scroll-view {
+  box-sizing: border-box;
+}
+
+/* Common Card Style */
+.bzd-card {
+  background: #FFFFFF;
+  border-radius: 36rpx;
+  box-shadow: 0 8rpx 24rpx rgba(160, 140, 110, 0.08);
+  border: 2rpx solid rgba(220, 210, 195, 0.4);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Common Buttons */
+.bzd-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999rpx;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.bzd-btn:active {
+  transform: scale(0.96);
+  opacity: 0.9;
+}
+
+.bzd-btn--green {
+  background: linear-gradient(135deg, #7FA277, #668B5E);
+  color: #FFFFFF;
+  box-shadow: 0 6rpx 16rpx rgba(102, 139, 94, 0.28);
+}
+
+.bzd-btn--orange {
+  background: linear-gradient(135deg, #F5B059, #EA9638);
+  color: #FFFFFF;
+  box-shadow: 0 6rpx 16rpx rgba(234, 150, 56, 0.28);
+}
+
+.bzd-btn--done {
+  background: #EAE6DD;
+  color: #8C8477;
+}
+
+.bzd-btn--blue {
+  background: linear-gradient(135deg, #6B88B2, #537099);
+  color: #FFFFFF;
+  box-shadow: 0 6rpx 16rpx rgba(83, 112, 153, 0.28);
+}
+
+/* Animations */
+@keyframes floatAnim {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8rpx); }
+}
+
+@keyframes pulseGlow {
+  0%, 100% { opacity: 0.8; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.05); }
+}
+
+@keyframes heartFloat {
+  0% { opacity: 0; transform: translateY(0) scale(0.6); }
+  50% { opacity: 1; transform: translateY(-30rpx) scale(1.2); }
+  100% { opacity: 0; transform: translateY(-70rpx) scale(1.4); }
+}
+
+.anim-float {
+  animation: floatAnim 3s ease-in-out infinite;
+}
+
+.anim-pulse {
+  animation: pulseGlow 2s ease-in-out infinite;
+}
+
+/* Safe Area Spacing */
+.safe-bottom-space {
+  height: 180rpx;
+  width: 100%;
+}

@@ -1,0 +1,96 @@
+.welcome-container {
+  min-height: 100vh;
+  background: radial-gradient(circle at 50% 30%, #FFFDF8 0%, #F5F0E4 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60rpx 48rpx;
+}
+
+.welcome-content {
+  width: 100%;
+  max-width: 620rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.logo-box {
+  width: 320rpx;
+  height: 320rpx;
+  margin-bottom: 36rpx;
+  filter: drop-shadow(0 16rpx 32rpx rgba(180, 150, 110, 0.2));
+}
+
+.brand-logo {
+  width: 100%;
+  height: 100%;
+}
+
+.text-box {
+  margin-bottom: 48rpx;
+}
+
+.title-text {
+  font-size: 52rpx;
+  font-weight: 800;
+  color: #3B4B38;
+  letter-spacing: 2rpx;
+  display: block;
+  margin-bottom: 12rpx;
+}
+
+.tagline {
+  font-size: 28rpx;
+  font-weight: 600;
+  color: #5C7C57;
+  display: block;
+  margin-bottom: 20rpx;
+}
+
+.intro-text {
+  font-size: 24rpx;
+  color: #7A7264;
+  line-height: 1.6;
+  display: block;
+}
+
+.features-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16rpx;
+  width: 100%;
+  margin-bottom: 60rpx;
+}
+
+.feature-item {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-radius: 24rpx;
+  padding: 18rpx 28rpx;
+  display: flex;
+  align-items: center;
+  border: 2rpx solid #EFEAE0;
+  box-shadow: 0 4rpx 14rpx rgba(160, 140, 110, 0.08);
+}
+
+.fi-icon {
+  font-size: 32rpx;
+  margin-right: 18rpx;
+}
+
+.fi-text {
+  font-size: 24rpx;
+  font-weight: 600;
+  color: #4A4238;
+}
+
+.start-btn {
+  width: 100%;
+  padding: 26rpx 0;
+  font-size: 30rpx;
+  border: none;
+}

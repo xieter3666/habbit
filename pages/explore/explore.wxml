@@ -1,0 +1,287 @@
+<view class="explore-container">
+
+  <!-- ================= 顶部自然艺术横幅 ================= -->
+  <view class="banner-section">
+    <image class="banner-artwork" src="{{assets.explore.bannerArt}}" mode="widthFix" />
+  </view>
+
+  <view class="content-body">
+    <!-- ================= 地球Online 冒险卡片 ================= -->
+    <view class="earth-card bzd-card" bindtap="openDailyReward">
+      <view class="earth-card-left">
+        <image class="earth-icon" src="{{assets.explore.earth}}" mode="aspectFit" />
+        <view class="earth-info">
+          <view class="earth-title-row">
+            <text class="earth-title">地球Online</text>
+            <text class="earth-arrow">›</text>
+          </view>
+          <text class="earth-subtitle">和小伙伴们一起，把日常过成一场有趣的冒险！</text>
+        </view>
+      </view>
+
+      <view class="earth-card-right">
+        <view class="lv-badge-row">
+          <text class="lv-text">Lv.{{user.level}}</text>
+          <text class="lv-title">{{user.title}}</text>
+          <text class="sparkle">✦✦</text>
+        </view>
+        <view class="exp-bar-wrap">
+          <view class="exp-bar-inner" style="width: {{expPercent}}%;"></view>
+        </view>
+        <text class="exp-text">{{user.exp}}/{{user.maxExp}}</text>
+      </view>
+
+      <view class="reward-box" catchtap="openDailyReward">
+        <image class="gift-icon anim-float" src="{{assets.explore.gift}}" mode="aspectFit" />
+        <text class="gift-text">{{dailyReward.claimedToday ? '已签到' : '每日奖励'}}</text>
+      </view>
+    </view>
+
+    <!-- ================= 每日任务板块 ================= -->
+    <view class="section-card bzd-card">
+      <view class="section-header">
+        <view class="section-title-wrap">
+          <text class="sprout-icon">🌱</text>
+          <text class="section-title">每日任务</text>
+          <text class="section-sub">✦ 坚持完成，积累小星星 ☀️</text>
+        </view>
+        <view class="done-tag">
+          <text>⭐ 今日已完成 {{completedTasksCount}}/{{dailyTasks.length}}</text>
+        </view>
+      </view>
+
+      <!-- 任务列表 -->
+      <view class="task-list">
+        <view
+          class="task-item {{item.done ? 'task-done' : ''}}"
+          wx:for="{{dailyTasks}}"
+          wx:key="id"
+        >
+          <view class="task-icon-wrap">
+            <image class="task-icon" src="{{item.icon}}" mode="aspectFit" />
+          </view>
+
+          <view class="task-content">
+            <text class="task-title">{{item.title}}</text>
+            <text class="task-desc">{{item.desc}}</text>
+            <view class="task-rewards">
+              <text class="reward-tag exp">⭐ +{{item.exp}} 经验值</text>
+              <text class="reward-tag star">⚡ +{{item.stars}} 小星星</text>
+            </view>
+          </view>
+
+          <view class="task-action">
+            <button
+              class="bzd-btn {{item.done ? 'bzd-btn--done' : 'bzd-btn--green'}} task-btn"
+              bindtap="handleTaskAction"
+              data-id="{{item.id}}"
+              data-type="{{item.type}}"
+            >
+              <text wx:if="{{item.done}}">✓ 已完成</text>
+              <text wx:else>去完成 ›</text>
+            </button>
+          </view>
+        </view>
+      </view>
+
+      <!-- 添加自定义日常任务按钮 -->
+      <view class="add-task-bar" bindtap="openAddTaskDialog">
+        <text class="add-icon">＋</text>
+        <text class="add-text">添加自定义日常挑战</text>
+      </view>
+    </view>
+
+    <!-- ================= 本周挑战板块 ================= -->
+    <view class="challenge-card bzd-card" bindtap="openChallengeModal">
+      <view class="challenge-bg-decor">
+        <image class="challenge-dog-img anim-float" src="{{assets.explore.challengeDog}}" mode="aspectFit" />
+      </view>
+
+      <view class="challenge-body">
+        <view class="challenge-tag">
+          <text>🔥 本周挑战</text>
+        </view>
+
+        <view class="challenge-main-title">
+          <text class="title-text">{{weeklyChallenge.title}}</text>
+        </view>
+
+        <text class="challenge-desc">{{weeklyChallenge.desc}}</text>
+
+        <!-- 打卡天数圆点 -->
+        <view class="challenge-days-row">
+          <view
+            class="day-dot {{weeklyChallenge.days[index] ? 'checked' : ''}}"
+            wx:for="{{[0, 1, 2]}}"
+            wx:key="*this"
+          >
+            <text class="day-check-text">{{weeklyChallenge.days[index] ? '✓' : '第' + (index + 1) + '天'}}</text>
+          </view>
+        </view>
+
+        <view class="challenge-footer">
+          <view class="challenge-rewards">
+            <text class="ch-reward">⭐ +{{weeklyChallenge.exp}} 经验值</text>
+            <text class="ch-reward">⭐ +{{weeklyChallenge.stars}} 小星星</text>
+          </view>
+
+          <button class="bzd-btn bzd-btn--blue ch-btn" catchtap="handlePunchChallenge">
+            <text wx:if="{{weeklyChallenge.done}}">✓ 挑战已达成</text>
+            <text wx:else>去挑战 ›</text>
+          </button>
+        </view>
+      </view>
+    </view>
+
+    <!-- ================= 今日幸运事件 ================= -->
+    <view class="fortune-card bzd-card" bindtap="handleDrawFortune">
+      <view class="fortune-header">
+        <view class="fortune-title-wrap">
+          <text class="clover-icon">🍀</text>
+          <text class="fortune-title">今日幸运事件</text>
+          <text class="fortune-refresh-tip">（点击换一签）</text>
+        </view>
+      </view>
+
+      <view class="fortune-content">
+        <view class="fortune-arrow-circle">➜</view>
+        <text class="fortune-text">{{luckyFortune.text}}</text>
+        <view class="fortune-stamp-wrap anim-pulse">
+          <image class="fortune-stamp" src="{{luckyFortune.stamp}}" mode="aspectFit" />
+        </view>
+      </view>
+    </view>
+
+    <!-- ================= 底部两列：我的成长 & 萌宠寄语 ================= -->
+    <view class="bottom-row">
+      <!-- 我的成长 -->
+      <view class="growth-card bzd-card" bindtap="openGrowthDialog">
+        <view class="growth-header">
+          <text class="growth-sprout">🌱</text>
+          <text class="growth-title">我的成长</text>
+          <text class="growth-arrow">›</text>
+        </view>
+        <view class="growth-grid">
+          <view class="growth-stat-item">
+            <text class="stat-num star-color">{{user.stars}}</text>
+            <text class="stat-name">小星星</text>
+          </view>
+          <view class="growth-stat-item">
+            <text class="stat-num level-color">Lv.{{user.level}}</text>
+            <text class="stat-name">{{user.title}}</text>
+          </view>
+          <view class="growth-stat-item">
+            <text class="stat-num ach-color">{{user.achievementsCount}}</text>
+            <text class="stat-name">成就</text>
+          </view>
+          <view class="growth-stat-item">
+            <text class="stat-num col-color">{{user.collectionsCount}}</text>
+            <text class="stat-name">收藏</text>
+          </view>
+        </view>
+      </view>
+
+      <!-- 鼓励萌宠卡片 -->
+      <view class="encourage-card bzd-card" bindtap="handleEncouragePet">
+        <view class="encourage-speech">
+          <text>{{petEncouragementText}}</text>
+        </view>
+        <image class="encourage-puppy" src="{{assets.explore.puppyEncourage}}" mode="aspectFit" />
+      </view>
+    </view>
+
+  </view>
+
+  <!-- 底部留白 -->
+  <view class="safe-bottom-space"></view>
+
+  <!-- 自定义 TabBar -->
+  <custom-tabbar show="{{true}}" active="explore" />
+
+  <!-- ================= 弹窗集合 ================= -->
+
+  <!-- 1. 每日签到奖励弹窗 -->
+  <modal-dialog show="{{showRewardModal}}" title="每日冒险奖励" icon="🎁" bindclose="closeRewardModal">
+    <view class="modal-reward-inner">
+      <image class="modal-gift-img anim-float" src="/assets/explore/gift.png" mode="aspectFit" />
+      <text class="reward-highlight">已连续打卡 {{dailyReward.streakDays}} 天！</text>
+      <text class="reward-subtext">每天坚持一点点，生活就会变得温柔又闪闪发光～</text>
+      <view class="reward-items-box">
+        <view class="reward-item">
+          <text class="ri-icon">⚡</text>
+          <text class="ri-value">+{{dailyReward.rewardStars}} 小星星</text>
+        </view>
+        <view class="reward-item">
+          <text class="ri-icon">⭐</text>
+          <text class="ri-value">+{{dailyReward.rewardExp}} 经验值</text>
+        </view>
+      </view>
+      <button
+        class="bzd-btn bzd-btn--orange modal-action-btn"
+        bindtap="handleClaimReward"
+        disabled="{{dailyReward.claimedToday}}"
+      >
+        <text>{{dailyReward.claimedToday ? '今日已领取，明天见～' : '立即领取奖励'}}</text>
+      </button>
+    </view>
+  </modal-dialog>
+
+  <!-- 2. 拍照打卡 / 记录生活弹窗 -->
+  <modal-dialog show="{{showCameraModal}}" title="记录今日微光" icon="📷" bindclose="closeCameraModal">
+    <view class="modal-cam-inner">
+      <view class="photo-preview-wrap" bindtap="handleChoosePhoto">
+        <image wx:if="{{photoTempUrl}}" class="photo-img" src="{{photoTempUrl}}" mode="aspectFill" />
+        <view wx:else class="photo-placeholder">
+          <image class="ph-cam-icon" src="/assets/toolbox/camera.png" mode="aspectFit" />
+          <text class="ph-text">点击拍摄或从相册选择生活瞬间</text>
+        </view>
+      </view>
+      <input
+        class="caption-input"
+        placeholder="写一句今日生活旁白..."
+        value="{{photoCaption}}"
+        bindinput="onCaptionInput"
+      />
+      <button class="bzd-btn bzd-btn--green modal-action-btn" bindtap="handleSavePhotoRecord">
+        <text>保存打卡并领取 +5 星星</text>
+      </button>
+    </view>
+  </modal-dialog>
+
+  <!-- 3. 阅读专注打卡弹窗 -->
+  <modal-dialog show="{{showReadModal}}" title="今日阅读计划" icon="📖" bindclose="closeReadModal">
+    <view class="modal-read-inner">
+      <image class="read-icon-img anim-float" src="/assets/icons/book.png" mode="aspectFit" />
+      <text class="read-title">15分钟温暖阅读</text>
+      <text class="read-desc">翻开一本书，享受专属自己的静谧时光。</text>
+      <view class="read-timer-display">
+        <text class="read-time-num">{{readingMinutes}}:00</text>
+      </view>
+      <button class="bzd-btn bzd-btn--green modal-action-btn" bindtap="handleFinishReading">
+        <text>完成阅读打卡 (+5小星星)</text>
+      </button>
+    </view>
+  </modal-dialog>
+
+  <!-- 4. 添加自定义任务弹窗 -->
+  <modal-dialog show="{{showAddTaskModal}}" title="添加新日常" icon="🌱" bindclose="closeAddTaskModal">
+    <view class="modal-add-inner">
+      <input
+        class="bzd-input"
+        placeholder="输入任务名称，如：散步20分钟"
+        value="{{newTaskTitle}}"
+        bindinput="onNewTaskTitleInput"
+      />
+      <input
+        class="bzd-input"
+        placeholder="输入任务小目标，如：出门走走呼吸新鲜空气"
+        value="{{newTaskDesc}}"
+        bindinput="onNewTaskDescInput"
+      />
+      <button class="bzd-btn bzd-btn--green modal-action-btn" bindtap="handleCreateNewTask">
+        <text>创建新习惯</text>
+      </button>
+    </view>
+  </modal-dialog>
+
+</view>

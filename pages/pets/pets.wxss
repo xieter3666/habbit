@@ -1,0 +1,447 @@
+.pets-page-container {
+  min-height: 100vh;
+  background-color: #F7F4EB;
+  position: relative;
+  padding-bottom: 30rpx;
+}
+
+/* ================= 顶部自然乐园场景 ================= */
+.meadow-hero-wrap {
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+  line-height: 0;
+}
+
+.meadow-full-img {
+  width: 100%;
+  display: block;
+}
+
+.hero-top-bar {
+  position: absolute;
+  top: calc(env(safe-area-inset-top) + 20rpx);
+  left: 28rpx;
+  right: 28rpx;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12rpx;
+  z-index: 10;
+}
+
+.back-circle-btn {
+  width: 58rpx;
+  height: 58rpx;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 2rpx solid #EAE3D5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4rpx 12rpx rgba(130, 110, 80, 0.15);
+}
+
+.back-circle-btn:active {
+  transform: scale(0.92);
+}
+
+.back-arrow {
+  font-size: 36rpx;
+  font-weight: 700;
+  color: #4A4238;
+  line-height: 1;
+  margin-top: -4rpx;
+}
+
+.star-counter-pill, .pet-companion-badge {
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-radius: 999rpx;
+  padding: 10rpx 20rpx;
+  display: flex;
+  align-items: center;
+  box-shadow: 0 4rpx 12rpx rgba(130, 110, 80, 0.15);
+  border: 2rpx solid #EAE3D5;
+}
+
+.scp-icon {
+  font-size: 24rpx;
+  margin-right: 6rpx;
+}
+
+.scp-text {
+  font-size: 22rpx;
+  font-weight: 700;
+  color: #D48828;
+}
+
+.pcb-text {
+  font-size: 20rpx;
+  font-weight: 600;
+  color: #5C7C57;
+}
+
+.hero-quote-bubble {
+  position: absolute;
+  bottom: 30rpx;
+  left: 36rpx;
+  right: 36rpx;
+  background: rgba(255, 255, 255, 0.94);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-radius: 28rpx;
+  padding: 18rpx 28rpx;
+  font-size: 24rpx;
+  color: #4A4238;
+  font-weight: 600;
+  box-shadow: 0 8rpx 24rpx rgba(130, 110, 80, 0.18);
+  border: 2rpx solid #EFEAE0;
+  text-align: center;
+  z-index: 10;
+}
+
+.floating-hearts-layer {
+  position: absolute;
+  bottom: 80rpx;
+  left: 50%;
+  transform: translateX(-50%);
+  pointer-events: none;
+  z-index: 20;
+}
+
+.flying-heart {
+  position: absolute;
+  font-size: 40rpx;
+  animation: heartFloat 1.2s ease-out forwards;
+}
+
+.flying-heart.h1 { left: -30rpx; animation-delay: 0s; }
+.flying-heart.h2 { left: 10rpx; animation-delay: 0.15s; }
+.flying-heart.h3 { left: 50rpx; animation-delay: 0.3s; }
+
+.pets-body-content {
+  padding: 0 28rpx;
+  position: relative;
+  top: -10rpx;
+}
+
+/* ================= 宠物交互控制台 ================= */
+.pet-console-card {
+  padding: 28rpx;
+  margin-bottom: 24rpx;
+  background: #FCFBF7;
+}
+
+.pet-selector-tabs {
+  display: flex;
+  gap: 16rpx;
+  margin-bottom: 24rpx;
+}
+
+.pet-tab-item {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  background: #FAF8F2;
+  border-radius: 24rpx;
+  padding: 12rpx 16rpx;
+  border: 2rpx solid #EFEAE0;
+  transition: all 0.2s ease;
+}
+
+.pet-tab-item.active {
+  background: #FFFFFF;
+  border-color: #F8C36A;
+  box-shadow: 0 6rpx 18rpx rgba(230, 160, 60, 0.2);
+}
+
+.pet-tab-avatar {
+  width: 60rpx;
+  height: 60rpx;
+  margin-right: 12rpx;
+  flex-shrink: 0;
+}
+
+.pet-tab-col {
+  display: flex;
+  flex-direction: column;
+}
+
+.pet-tab-name {
+  font-size: 24rpx;
+  font-weight: 700;
+  color: #4A4238;
+}
+
+.pet-tab-status {
+  font-size: 18rpx;
+  margin-top: 2rpx;
+}
+
+.pet-tab-status.unlocked { color: #5C7C57; font-weight: 600; }
+.pet-tab-status.locked { color: #A39B8F; }
+
+.pet-detail-status {
+  background: #FAF8F2;
+  border-radius: 28rpx;
+  padding: 24rpx;
+  border: 2rpx solid #EFEAE0;
+}
+
+.pds-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20rpx;
+}
+
+.pds-title-col {
+  display: flex;
+  flex-direction: column;
+}
+
+.pds-name {
+  font-size: 32rpx;
+  font-weight: 700;
+  color: #4A4238;
+}
+
+.pds-desc {
+  font-size: 22rpx;
+  color: #8C8477;
+  margin-top: 4rpx;
+}
+
+.set-companion-btn {
+  font-size: 20rpx;
+  padding: 10rpx 22rpx;
+  line-height: 1;
+}
+
+.pet-meters-row {
+  display: flex;
+  gap: 24rpx;
+  margin-bottom: 24rpx;
+}
+
+.meter-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.meter-info {
+  display: flex;
+  justify-content: space-between;
+  font-size: 22rpx;
+  margin-bottom: 8rpx;
+}
+
+.meter-label {
+  color: #6E6659;
+}
+
+.meter-val {
+  font-weight: 700;
+  color: #4A4238;
+}
+
+.meter-track {
+  width: 100%;
+  height: 14rpx;
+  background: #EBE5D8;
+  border-radius: 7rpx;
+  overflow: hidden;
+}
+
+.meter-fill {
+  height: 100%;
+  border-radius: 7rpx;
+  transition: width 0.3s ease;
+}
+
+.food-fill { background: linear-gradient(90deg, #F5B059, #E58728); }
+.love-fill { background: linear-gradient(90deg, #F28C8C, #E65A5A); }
+
+.pet-actions-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16rpx;
+}
+
+.action-btn-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20rpx 10rpx;
+  border-radius: 24rpx;
+  background: #FFFFFF;
+  border: 2rpx solid #EFEAE0;
+  box-shadow: 0 4rpx 12rpx rgba(160, 140, 110, 0.08);
+  transition: all 0.2s ease;
+}
+
+.action-btn-item:active {
+  transform: scale(0.94);
+}
+
+.action-btn-item.feed { background: linear-gradient(135deg, #FFF9EB, #FFF0D6); }
+.action-btn-item.play { background: linear-gradient(135deg, #EEF6ED, #DEF0DC); }
+.action-btn-item.cuddle { background: linear-gradient(135deg, #FDF0F0, #FBE0E0); }
+
+.abi-emoji {
+  font-size: 40rpx;
+  margin-bottom: 6rpx;
+}
+
+.abi-title {
+  font-size: 24rpx;
+  font-weight: 700;
+  color: #4A4238;
+}
+
+.abi-sub {
+  font-size: 18rpx;
+  color: #8C8477;
+  margin-top: 4rpx;
+}
+
+.pet-locked-hint {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 30rpx;
+  background: #F4EFE6;
+  border-radius: 20rpx;
+}
+
+.plh-icon {
+  font-size: 32rpx;
+  margin-right: 12rpx;
+}
+
+.plh-text {
+  font-size: 24rpx;
+  color: #8C8477;
+}
+
+/* ================= 萌宠贴纸与爪印图鉴 ================= */
+.stickers-section-card {
+  padding: 28rpx;
+  margin-bottom: 24rpx;
+  background: #FCFBF7;
+}
+
+.section-title-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24rpx;
+}
+
+.st-left {
+  display: flex;
+  align-items: center;
+}
+
+.st-leaf {
+  font-size: 28rpx;
+  margin-right: 8rpx;
+}
+
+.st-text {
+  font-size: 30rpx;
+  font-weight: 700;
+  color: #4A4238;
+}
+
+.st-more-link {
+  font-size: 22rpx;
+  color: #5C7C57;
+  font-weight: 600;
+}
+
+.stickers-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18rpx;
+}
+
+.sticker-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: #FAF8F2;
+  border-radius: 24rpx;
+  padding: 20rpx 12rpx;
+  border: 2rpx solid #EFEAE0;
+  transition: transform 0.2s ease;
+}
+
+.sticker-card:active {
+  transform: scale(0.95);
+}
+
+.sticker-img-wrap {
+  width: 100rpx;
+  height: 100rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sticker-img {
+  width: 90rpx;
+  height: 90rpx;
+}
+
+.sticker-name {
+  font-size: 22rpx;
+  font-weight: 600;
+  color: #4A4238;
+  margin: 10rpx 0 6rpx;
+}
+
+.sticker-badge {
+  background: #EEF6ED;
+  border-radius: 12rpx;
+  padding: 2rpx 10rpx;
+  font-size: 16rpx;
+  color: #5C7C57;
+  font-weight: 600;
+}
+
+/* 底部陪伴物语 */
+.pet-story-card {
+  padding: 28rpx;
+  margin-bottom: 24rpx;
+  background: #FAF8F2;
+}
+
+.story-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 12rpx;
+}
+
+.sh-icon {
+  font-size: 28rpx;
+  margin-right: 8rpx;
+}
+
+.sh-title {
+  font-size: 26rpx;
+  font-weight: 700;
+  color: #4A4238;
+}
+
+.story-content {
+  font-size: 22rpx;
+  color: #6E6659;
+  line-height: 1.6;
+}

@@ -1,0 +1,6 @@
+{
+  "usingComponents": {
+    "custom-tabbar": "/components/custom-tabbar/custom-tabbar",
+    "modal-dialog": "/components/modal-dialog/modal-dialog"
+  }
+}

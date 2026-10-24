@@ -1,0 +1,429 @@
+<view class="room-page-container">
+
+  <!-- ================= 1. 顶部极简沉浸状态条 ================= -->
+  <view class="room-header-bar">
+    <view class="rh-user-chip" bindtap="goToMineProfile">
+      <image class="rh-avatar" src="{{user.avatar || assets.user.avatar}}" mode="aspectFill" />
+      <view class="rh-user-text">
+        <view class="rh-name-line">
+          <text class="rh-name">{{user.name}}</text>
+          <text class="rh-leaf">{{user.leaf}}</text>
+        </view>
+        <view class="rh-level-line">
+          <text class="rh-level">Lv.{{user.level}}</text>
+          <view class="rh-exp-track">
+            <view class="rh-exp-fill" style="width: {{expPercent}}%;"></view>
+          </view>
+          <text class="rh-exp-val">{{user.exp}}/{{user.maxExp}}</text>
+        </view>
+      </view>
+    </view>
+
+    <view class="rh-right-pills">
+      <view class="rh-sync-pill {{syncStatus === 'synced' ? 'synced' : 'local'}}" bindtap="checkSyncStatus">
+        <text class="sync-dot">●</text>
+        <text class="sync-text">{{syncStatus === 'synced' ? '云端已同步' : '本地安全模式'}}</text>
+      </view>
+
+      <view class="rh-weather-pill" bindtap="handleChangeWeather">
+        <text class="rwp-icon">{{user.weather.icon}}</text>
+        <text class="rwp-text">{{user.weather.temp}}</text>
+      </view>
+    </view>
+  </view>
+
+
+  <!-- ================= 2. 核心大场景舞台 (Room Stage) ================= -->
+  <view class="room-stage-box">
+
+    <!-- A. 房间背景层 (支持多背景自由切换) -->
+    <view class="stage-layer-bg">
+      <image class="stage-bg-img" src="{{currentBg.image || assets.backgrounds.roomScene}}" mode="aspectFill" />
+    </view>
+
+    <!-- B. 墙面木质荣誉展示架 (自然融入墙面/书架) -->
+    <view class="stage-layer-honor">
+      <view class="wooden-honor-shelf" bindtap="openHonorWallModal">
+        <view class="shelf-header">
+          <text class="sh-icon">🏆</text>
+          <text class="sh-title">荣誉墙</text>
+          <text class="sh-count">{{user.achievementsCount}}/5</text>
+        </view>
+        <view class="shelf-rack">
+          <view
+            class="mini-badge-slot {{item.unlocked ? 'unlocked' : 'locked'}}"
+            wx:for="{{achievements}}"
+            wx:key="id"
+            catchtap="handleTapHonorBadge"
+            data-id="{{item.id}}"
+          >
+            <image class="mini-badge-icon" src="{{item.icon}}" mode="aspectFit" />
+            <view class="mini-badge-glow" wx:if="{{item.unlocked}}"></view>
+          </view>
+        </view>
+        <view class="shelf-wood-ledge"></view>
+      </view>
+    </view>
+
+    <!-- C. 视觉中心：卡通角色主体 (占主要场景约 75% 视觉比重) -->
+    <view class="stage-layer-character">
+      <!-- 角色头顶互动心声气泡 -->
+      <view class="character-speech-bubble anim-float" bindtap="handleTapCharacter">
+        <text class="csb-text">{{characterQuote}}</text>
+      </view>
+
+      <!-- 角色核心立绘与装扮容器 -->
+      <view class="character-avatar-wrap anim-breathe" bindtap="handleTapCharacter">
+        <!-- 基础角色身体立绘 -->
+        <image class="character-body-img" src="{{assets.characters.defaultBody || assets.characters.testGirl || assets.mine.charMini}}" mode="aspectFit" />
+
+        <!-- 角色穿戴配件图层预留 (分层渲染容器) -->
+        <image class="outfit-layer-hat" src="{{equippedItems.hat.layerImage}}" wx:if="{{equippedItems.hat.equipped && equippedItems.hat.layerImage}}" mode="aspectFit" />
+        <image class="outfit-layer-jacket" src="{{equippedItems.jacket.layerImage}}" wx:if="{{equippedItems.jacket.equipped && equippedItems.jacket.layerImage}}" mode="aspectFit" />
+        <image class="outfit-layer-backpack" src="{{equippedItems.backpack.layerImage}}" wx:if="{{equippedItems.backpack.equipped && equippedItems.backpack.layerImage}}" mode="aspectFit" />
+      </view>
+
+      <!-- 角色脚下柔和阴影 -->
+      <view class="character-feet-shadow"></view>
+    </view>
+
+    <!-- D. 陪伴宠物 (自然立于角色身侧地毯，不抢主体) -->
+    <view class="stage-layer-pet" bindtap="handleTapRoomPet">
+      <view class="pet-heart-effect" wx:if="{{showHeartAnim}}">❤️ 呼噜呼噜~</view>
+      <image class="room-companion-pet anim-float" src="{{activePet.sceneImg || activePet.avatar}}" mode="aspectFit" />
+      <view class="pet-feet-shadow"></view>
+    </view>
+
+    <!-- E. 场景浮动独立工具箱图标 (右下角常驻单一入口) -->
+    <view class="stage-layer-toolbox-fab">
+      <view class="toolbox-fab-btn anim-bounce-gentle" bindtap="openToolboxDrawer">
+        <view class="tfb-icon-circle">
+          <text class="tfb-emoji">🌱</text>
+        </view>
+        <text class="tfb-label">我的工具箱</text>
+        <view class="tfb-arrow">›</view>
+      </view>
+    </view>
+
+  </view>
+
+
+  <!-- ================= 3. 全局底部 TabBar ================= -->
+  <custom-tabbar show="{{!showToolboxDrawer}}" active="room" />
+
+
+  <!-- ================= 4. 工具箱抽屉面板 (Toolbox Drawer) ================= -->
+  <view class="drawer-mask {{showToolboxDrawer ? 'show' : ''}}" bindtap="closeToolboxDrawer"></view>
+
+  <view class="toolbox-drawer-wrap {{showToolboxDrawer ? 'open' : ''}}">
+    <!-- 抽屉顶部把手与标题 -->
+    <view class="drawer-header">
+      <view class="drawer-drag-pill"></view>
+      <view class="drawer-title-row">
+        <view class="dt-left">
+          <text class="dt-icon">🌱</text>
+          <text class="dt-main">我的多功能工具箱</text>
+          <text class="dt-sub">生活探索与个人空间管理</text>
+        </view>
+        <view class="drawer-close-btn" bindtap="closeToolboxDrawer">
+          <text class="close-x">✕</text>
+        </view>
+      </view>
+
+      <!-- 抽屉分类切换 Tabs -->
+      <view class="drawer-tabs-strip">
+        <view
+          class="d-tab {{activeDrawerTab === 'outfits' ? 'active' : ''}}"
+          bindtap="switchDrawerTab"
+          data-tab="outfits"
+        >
+          <text class="d-tab-icon">👗</text>
+          <text class="d-tab-text">角色装扮</text>
+        </view>
+        <view
+          class="d-tab {{activeDrawerTab === 'backgrounds' ? 'active' : ''}}"
+          bindtap="switchDrawerTab"
+          data-tab="backgrounds"
+        >
+          <text class="d-tab-icon">🏡</text>
+          <text class="d-tab-text">房间背景</text>
+        </view>
+        <view
+          class="d-tab {{activeDrawerTab === 'pets' ? 'active' : ''}}"
+          bindtap="switchDrawerTab"
+          data-tab="pets"
+        >
+          <text class="d-tab-icon">🐾</text>
+          <text class="d-tab-text">陪伴宠物</text>
+        </view>
+        <view
+          class="d-tab {{activeDrawerTab === 'tools' ? 'active' : ''}}"
+          bindtap="switchDrawerTab"
+          data-tab="tools"
+        >
+          <text class="d-tab-icon">🧰</text>
+          <text class="d-tab-text">生活工具</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 抽屉内容区域 -->
+    <scroll-view scroll-y class="drawer-content-scroll">
+
+      <!-- 分类 1: 角色装扮面板 -->
+      <view class="tab-panel-section" wx:if="{{activeDrawerTab === 'outfits'}}">
+        <view class="panel-hint-bar">
+          <text class="ph-text">已解锁装扮 {{unlockedOutfitCount}}/{{wardrobe.length}} 件 · 点击可穿戴或卸下</text>
+        </view>
+        <view class="outfit-items-grid">
+          <view
+            class="outfit-grid-card {{item.equipped ? 'equipped' : ''}}"
+            wx:for="{{wardrobe}}"
+            wx:key="key"
+            bindtap="handleToggleOutfit"
+            data-key="{{item.key}}"
+          >
+            <view class="ogc-img-box">
+              <image class="ogc-icon" src="{{item.icon}}" mode="aspectFit" />
+              <view class="ogc-equipped-badge" wx:if="{{item.equipped}}">✓ 已穿戴</view>
+            </view>
+            <text class="ogc-name">{{item.name}}</text>
+            <button class="bzd-btn {{item.equipped ? 'bzd-btn--green' : 'bzd-btn--cream'}} ogc-btn">
+              <text>{{item.equipped ? '卸下' : '穿戴'}}</text>
+            </button>
+          </view>
+        </view>
+      </view>
+
+      <!-- 分类 2: 房间背景面板 -->
+      <view class="tab-panel-section" wx:if="{{activeDrawerTab === 'backgrounds'}}">
+        <view class="panel-hint-bar">
+          <text class="ph-text">自由切换房间主题背景，角色与装扮保持独立保留</text>
+        </view>
+        <view class="bg-themes-list">
+          <view
+            class="bg-theme-card {{currentBgId === item.id ? 'active-bg' : ''}}"
+            wx:for="{{backgroundThemes}}"
+            wx:key="id"
+            bindtap="handleSwitchBackground"
+            data-id="{{item.id}}"
+          >
+            <image class="btc-thumb" src="{{item.image}}" mode="aspectFill" />
+            <view class="btc-info">
+              <view class="btc-title-row">
+                <text class="btc-name">{{item.name}}</text>
+                <text class="btc-tag" wx:if="{{currentBgId === item.id}}">当前使用中</text>
+              </view>
+              <text class="btc-desc">{{item.desc}}</text>
+            </view>
+            <button class="bzd-btn {{currentBgId === item.id ? 'bzd-btn--done' : 'bzd-btn--green'}} btc-action">
+              <text>{{currentBgId === item.id ? '已使用' : '使用'}}</text>
+            </button>
+          </view>
+        </view>
+      </view>
+
+      <!-- 分类 3: 陪伴宠物面板 -->
+      <view class="tab-panel-section" wx:if="{{activeDrawerTab === 'pets'}}">
+        <view class="pet-meadow-jump-card" bindtap="goToPetMeadow">
+          <text class="pmj-icon">🏞️</text>
+          <view class="pmj-info">
+            <text class="pmj-title">前往大自然萌宠乐园 ›</text>
+            <text class="pmj-sub">在草地上投喂零食、逗宠玩耍、收集爪印贴纸</text>
+          </view>
+        </view>
+
+        <view class="pets-drawer-list">
+          <view
+            class="pet-drawer-card {{activePetId === item.id ? 'selected' : ''}}"
+            wx:for="{{pets}}"
+            wx:key="id"
+            bindtap="handleSelectCompanionPet"
+            data-id="{{item.id}}"
+          >
+            <image class="pdc-avatar" src="{{item.avatar}}" mode="aspectFit" />
+            <view class="pdc-info">
+              <view class="pdc-title-row">
+                <text class="pdc-name">{{item.name}}</text>
+                <text class="pdc-species">{{item.species}}</text>
+                <text class="pdc-badge" wx:if="{{activePetId === item.id}}">⭐ 正在房间</text>
+              </view>
+              <text class="pdc-desc">{{item.desc}}</text>
+              <view class="pdc-status-row">
+                <text class="status-lbl">饱食: {{item.hunger}}%</text>
+                <text class="status-lbl">亲密: {{item.happiness}}%</text>
+              </view>
+            </view>
+            <button class="bzd-btn bzd-btn--green pdc-btn" wx:if="{{item.unlocked}}">
+              <text>{{activePetId === item.id ? '陪伴中' : '设为出场'}}</text>
+            </button>
+            <text class="pdc-locked" wx:else>🔒 待完成日常解锁</text>
+          </view>
+        </view>
+      </view>
+
+      <!-- 分类 4: 生活实用工具 -->
+      <view class="tab-panel-section" wx:if="{{activeDrawerTab === 'tools'}}">
+        <view class="tools-drawer-grid">
+          <view class="tool-tile" bindtap="handleToolClick" data-tool="camera">
+            <image class="tool-tile-icon" src="{{assets.tools.camera}}" mode="aspectFit" />
+            <text class="tool-tile-title">相机记录</text>
+            <text class="tool-tile-desc">捕捉今日瞬间</text>
+          </view>
+          <view class="tool-tile" bindtap="handleToolClick" data-tool="album">
+            <image class="tool-tile-icon" src="{{assets.tools.album}}" mode="aspectFit" />
+            <text class="tool-tile-title">生活相册</text>
+            <text class="tool-tile-desc">回忆与成长留影</text>
+          </view>
+          <view class="tool-tile" bindtap="handleToolClick" data-tool="note">
+            <image class="tool-tile-icon" src="{{assets.tools.note}}" mode="aspectFit" />
+            <text class="tool-tile-title">治愈便签</text>
+            <text class="tool-tile-desc">温暖日常碎片</text>
+          </view>
+          <view class="tool-tile" bindtap="handleToolClick" data-tool="calendar">
+            <image class="tool-tile-icon" src="{{assets.tools.calendar}}" mode="aspectFit" />
+            <text class="tool-tile-title">打卡日历</text>
+            <text class="tool-tile-desc">月度自律轨迹</text>
+          </view>
+          <view class="tool-tile" bindtap="handleToolClick" data-tool="focus">
+            <image class="tool-tile-icon" src="{{assets.tools.focus}}" mode="aspectFit" />
+            <text class="tool-tile-title">正念专注</text>
+            <text class="tool-tile-desc">15分钟番茄钟</text>
+          </view>
+          <view class="tool-tile" bindtap="handleToolClick" data-tool="settings">
+            <image class="tool-tile-icon" src="{{assets.tools.more}}" mode="aspectFit" />
+            <text class="tool-tile-title">数据与设置</text>
+            <text class="tool-tile-desc">重置与关于</text>
+          </view>
+        </view>
+      </view>
+
+      <!-- 底部安全留白 -->
+      <view class="drawer-safe-padding"></view>
+    </scroll-view>
+  </view>
+
+
+  <!-- ================= 5. 弹窗组件群 ================= -->
+
+  <!-- A. 荣誉勋章详情弹窗 -->
+  <modal-dialog show="{{showHonorBadgeModal}}" title="{{selectedBadge.name || '成就荣誉'}}" icon="🏅" bindclose="closeHonorBadgeModal">
+    <view class="honor-modal-detail">
+      <image class="hmd-badge-img" src="{{selectedBadge.icon}}" mode="aspectFit" />
+      <text class="hmd-name">{{selectedBadge.name}}</text>
+      <text class="hmd-status {{selectedBadge.unlocked ? 'unlocked' : 'locked'}}">
+        {{selectedBadge.unlocked ? '✓ 已达成并已颁发' : '🔒 尚未达成'}}
+      </text>
+      <view class="hmd-info-box">
+        <text class="hmd-row">达成目标：{{selectedBadge.sub}}</text>
+        <text class="hmd-row">解锁故事：{{selectedBadge.desc}}</text>
+        <text class="hmd-row" wx:if="{{selectedBadge.unlocked}}">获得时间：{{selectedBadge.achievedAt || '2026年10月'}}</text>
+      </view>
+    </view>
+  </modal-dialog>
+
+  <!-- B. 生活相册弹窗 -->
+  <modal-dialog show="{{showAlbumModal}}" title="生活回忆相册" icon="🖼️" bindclose="closeAlbumModal">
+    <view class="modal-album-content">
+      <view class="album-grid">
+        <view class="album-card" wx:for="{{album}}" wx:key="id">
+          <image class="album-img" src="{{item.image}}" mode="aspectFill" />
+          <view class="album-text-bar">
+            <text class="album-title">{{item.title}}</text>
+            <text class="album-date">{{item.date}}</text>
+          </view>
+          <text class="album-caption">{{item.desc}}</text>
+        </view>
+      </view>
+    </view>
+  </modal-dialog>
+
+  <!-- C. 治愈记事本弹窗 -->
+  <modal-dialog show="{{showNoteModal}}" title="治愈记事本" icon="📒" bindclose="closeNoteModal">
+    <view class="modal-notes-content">
+      <view class="new-note-box">
+        <input class="note-input-title" placeholder="写个小标题～" value="{{newNoteTitle}}" bindinput="onNoteTitleInput" />
+        <textarea class="note-textarea" placeholder="记录今天的小确幸，生活的温柔片段..." value="{{newNoteContent}}" bindinput="onNoteContentInput"></textarea>
+        <button class="bzd-btn bzd-btn--green save-note-btn" bindtap="handleSaveNote">
+          <text>＋ 保存便签</text>
+        </button>
+      </view>
+      <view class="saved-notes-list">
+        <view class="saved-note-item" wx:for="{{notes}}" wx:key="id">
+          <view class="sni-header">
+            <text class="sni-title">{{item.title}}</text>
+            <text class="sni-date">{{item.date}}</text>
+            <text class="sni-del" bindtap="handleDeleteNote" data-id="{{item.id}}">✕</text>
+          </view>
+          <text class="sni-content">{{item.content}}</text>
+        </view>
+      </view>
+    </view>
+  </modal-dialog>
+
+  <!-- D. 专注时钟弹窗 -->
+  <modal-dialog show="{{showFocusModal}}" title="正念专注时光" icon="🧭" bindclose="closeFocusModal">
+    <view class="modal-focus-content">
+      <view class="focus-timer-circle anim-pulse">
+        <text class="ft-time">{{focusFormattedTime}}</text>
+        <text class="ft-state">{{isFocusRunning ? '专注中 · 呼吸放松' : '准备好开始了吗？'}}</text>
+      </view>
+      <view class="focus-controls">
+        <button class="bzd-btn bzd-btn--green fc-btn" bindtap="handleToggleFocusTimer">
+          <text>{{isFocusRunning ? '暂停计时' : '开始专注'}}</text>
+        </button>
+        <button class="bzd-btn bzd-btn--cream fc-btn" bindtap="handleResetFocusTimer">
+          <text>重置</text>
+        </button>
+      </view>
+      <view class="focus-stats-card">
+        <text class="fsc-item">今日专注: {{focusStats.todayMinutes}} 分钟</text>
+        <text class="fsc-item">累计完成: {{focusStats.sessionsCount}} 次</text>
+      </view>
+    </view>
+  </modal-dialog>
+
+  <!-- E. 日历打卡弹窗 -->
+  <modal-dialog show="{{showCalendarModal}}" title="生活打卡日历" icon="📅" bindclose="closeCalendarModal">
+    <view class="modal-calendar-content">
+      <view class="cal-month-header">
+        <text class="cmh-title">2026 年 10 月</text>
+        <text class="cmh-sub">已坚持打卡 12 天 🐾</text>
+      </view>
+      <view class="cal-grid">
+        <view class="cal-day-cell {{item.checked ? 'checked-day' : ''}} {{item.today ? 'today-day' : ''}}" wx:for="{{calendarDays}}" wx:key="day">
+          <text class="cdc-num">{{item.day}}</text>
+          <text class="cdc-paw" wx:if="{{item.checked}}">🐾</text>
+        </view>
+      </view>
+    </view>
+  </modal-dialog>
+
+  <!-- F. 设置与重置弹窗 -->
+  <modal-dialog show="{{showSettingsModal}}" title="系统与数据设置" icon="⚙️" bindclose="closeSettingsModal">
+    <view class="modal-settings-content">
+      <view class="settings-row" bindtap="handleManualSync">
+        <view class="sr-left">
+          <text class="sr-label">云端数据状态</text>
+          <text class="sr-desc">{{syncStatus === 'synced' ? '已成功同步至微信云开发' : '当前为本地安全存储（离线可用）'}}</text>
+        </view>
+        <text class="sr-btn-tag">立即同步 ›</text>
+      </view>
+      <view class="settings-row" bindtap="handleResetAllData">
+        <view class="sr-left">
+          <text class="sr-label">重置演示数据</text>
+          <text class="sr-desc">恢复至初始演示档案</text>
+        </view>
+        <text class="sr-arrow">›</text>
+      </view>
+      <view class="settings-row" bindtap="handleShowAbout">
+        <view class="sr-left">
+          <text class="sr-label">关于「不止日常」</text>
+          <text class="sr-desc">v1.3.0 · 生活记录游戏化</text>
+        </view>
+        <text class="sr-arrow">›</text>
+      </view>
+    </view>
+  </modal-dialog>
+
+</view>

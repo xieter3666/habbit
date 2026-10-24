@@ -1,0 +1,21 @@
+{
+  "pages": [
+    "pages/explore/explore",
+    "pages/room/room",
+    "pages/mine/mine",
+    "pages/pets/pets",
+    "pages/welcome/welcome"
+  ],
+  "window": {
+    "navigationStyle": "custom",
+    "navigationBarTitleText": "不止日常",
+    "navigationBarTextStyle": "black",
+    "backgroundColor": "#F7F4EB",
+    "backgroundTextStyle": "light"
+  },
+  "usingComponents": {
+    "custom-tabbar": "/components/custom-tabbar/custom-tabbar",
+    "modal-dialog": "/components/modal-dialog/modal-dialog"
+  },
+  "sitemapLocation": "sitemap.json"
+}

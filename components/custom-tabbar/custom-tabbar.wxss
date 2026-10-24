@@ -1,0 +1,155 @@
+.custom-tabbar-wrap {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1000;
+  pointer-events: none;
+}
+
+.tabbar-decor-paws {
+  position: absolute;
+  top: -24rpx;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: space-around;
+  pointer-events: none;
+  opacity: 0.35;
+}
+
+.paw-decor {
+  width: 32rpx;
+  height: 32rpx;
+}
+
+.tabbar-body {
+  pointer-events: auto;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 128rpx;
+  padding: 0 48rpx constant(safe-area-inset-bottom);
+  padding: 0 48rpx env(safe-area-inset-bottom);
+  background: rgba(255, 255, 255, 0.94);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-top: 2rpx solid rgba(220, 210, 195, 0.5);
+  box-shadow: 0 -8rpx 32rpx rgba(160, 140, 110, 0.12);
+  border-radius: 44rpx 44rpx 0 0;
+}
+
+.tab-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.tab-item:active {
+  transform: scale(0.92);
+}
+
+.tab-icon-wrap {
+  width: 60rpx;
+  height: 60rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tab-icon {
+  width: 52rpx;
+  height: 52rpx;
+  transition: all 0.2s ease;
+  opacity: 0.5;
+}
+
+.tab-item.active .tab-icon {
+  opacity: 1;
+  transform: scale(1.1);
+}
+
+.tab-label {
+  font-size: 22rpx;
+  color: #9E9689;
+  font-weight: 500;
+  margin-top: 4rpx;
+  transition: color 0.2s ease;
+}
+
+.tab-item.active .tab-label {
+  color: #4B6443;
+  font-weight: 600;
+}
+
+.tab-item.active .cat-mine + .tab-label {
+  color: #5C5668;
+}
+
+.active-dot {
+  width: 24rpx;
+  height: 6rpx;
+  background: #4B6443;
+  border-radius: 4rpx;
+  margin-top: 4rpx;
+}
+
+.tab-item.active .cat-mine ~ .active-dot {
+  background: #5C5668;
+}
+
+/* Center Floating Dog Button */
+.tab-item-center {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  position: relative;
+  top: -26rpx;
+  cursor: pointer;
+}
+
+.tab-item-center:active {
+  transform: scale(0.94);
+}
+
+.center-circle {
+  width: 104rpx;
+  height: 104rpx;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #FFF9EB, #FFE6BE);
+  border: 6rpx solid #FFFFFF;
+  box-shadow: 0 10rpx 28rpx rgba(230, 160, 60, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.center-circle.active-center {
+  border-color: #F8C36A;
+  box-shadow: 0 12rpx 32rpx rgba(230, 160, 60, 0.55);
+}
+
+.dog-face {
+  width: 82rpx;
+  height: 82rpx;
+}
+
+.center-label {
+  font-size: 20rpx;
+  color: #A6927E;
+  margin-top: 4rpx;
+  font-weight: 500;
+}
+
+.center-label.active-text {
+  color: #D48028;
+  font-weight: 600;
+}

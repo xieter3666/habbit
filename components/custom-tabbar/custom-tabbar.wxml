@@ -1,0 +1,34 @@
+<view class="custom-tabbar-wrap" wx:if="{{show}}">
+  <view class="tabbar-decor-paws">
+    <image class="paw-decor left" src="{{assets.navigation.pawPink}}" mode="aspectFit" />
+    <image class="paw-decor right" src="{{assets.navigation.pawBlack}}" mode="aspectFit" />
+  </view>
+
+  <view class="tabbar-body">
+    <!-- Left: Explore (页面 A：每日任务首页) -->
+    <view class="tab-item {{active === 'explore' ? 'active' : ''}}" bindtap="switchTab" data-tab="explore">
+      <view class="tab-icon-wrap">
+        <image class="tab-icon cat-orange" src="{{assets.navigation.tabExplore}}" mode="aspectFit" />
+      </view>
+      <text class="tab-label">探索</text>
+      <view class="active-dot" wx:if="{{active === 'explore'}}"></view>
+    </view>
+
+    <!-- Center Floating: Room (页面 B：角色与成长空间) -->
+    <view class="tab-item-center" bindtap="switchTab" data-tab="room">
+      <view class="center-circle {{active === 'room' ? 'active-center' : ''}}">
+        <image class="dog-face anim-float" src="{{assets.navigation.tabRoom}}" mode="aspectFit" />
+      </view>
+      <text class="center-label {{active === 'room' ? 'active-text' : ''}}">空间</text>
+    </view>
+
+    <!-- Right: Mine (页面 C：个人中心) -->
+    <view class="tab-item {{active === 'mine' ? 'active' : ''}}" bindtap="switchTab" data-tab="mine">
+      <view class="tab-icon-wrap">
+        <image class="tab-icon cat-mine" src="{{assets.navigation.tabMine}}" mode="aspectFit" />
+      </view>
+      <text class="tab-label">我的</text>
+      <view class="active-dot" wx:if="{{active === 'mine'}}"></view>
+    </view>
+  </view>
+</view>
